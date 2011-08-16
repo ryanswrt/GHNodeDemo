@@ -21,8 +21,8 @@ function initiateEntities()
 	--print(i)
 	j.name = i
 	j.alive = true
-	j.has={food={400},land={0},wood={0},gold={0},stone={0},ore={0},iron={0}}
-	j.wants={food={1},land={0},wood={0},gold={0},stone={0},ore={0},iron={0}}
+	j.has={food={40},land={4},wood={0},gold={10},stone={0},ore={0},iron={0}}
+	j.wants={food={1},land={0},wood={0},gold={1},stone={0},ore={0},iron={0}}
 	j.makes={food={0},land={0},wood={0},gold={0},stone={0},ore={0},iron={0}}
 	j.allies={}
 	j.node={}
@@ -30,7 +30,7 @@ function initiateEntities()
     --print(entitySpec.farmer.name)
     
     entitySpec.farmer.wants.land={1}
-    entitySpec.farmer.makes.food={uses={resource="land",num=1},400}
+    entitySpec.farmer.makes.food={uses={resource="land",num=1},4}
     
     entitySpec.lord.has.land={always=true,4}
     
@@ -50,7 +50,7 @@ function initiateEntities()
 	end
     end
     
-    entitySpec.merchant.makes.gold = {any=true,value=true}
+    entitySpec.merchant.has.gold={100}
     
 end
 
@@ -64,24 +64,28 @@ function sourceWants(entity)
     for name, data in ipairs(entity.node.entities) do
     --print("checking "..name)
 	for resource, amount in pairs(entity.wants) do
-	    if data.has[resource][1] ~= 0 and data.wants[resource][1]==0 then
-	      print(name .. " has wants for " .. entity.name) 
+	    print(entity.name .. " wants "..amount[1] .. resource)
+	    if amount[1]>0 and data.has[resource][1] > 0 and data.wants[resource][1]<=data.has[resource][1] then
+	      --print(name .. " has wants for " .. entity.name) 
 		for dresource, damount in pairs(data.wants) do
-		    if entity.has[dresource][1] ~= 0 and entity.wants[dresource][1]==0 then
+		    if damount[1]>0 and entity.has[dresource][1] > 0 and entity.wants[dresource][1]<=entity.has[dresource][1] then
 			if entity.has[dresource].always then
+			    entity.has[dresource][1] = entitySpec[entity.name].has[dresource][1]
 			else
 			    entity.has[dresource][1] = entity.has[dresource][1] - 1
 			end
 			data.has[dresource][1] = data.has[dresource][1] + 1
 			
 			if data.has[resource].always then
+			    data.has[resource][1] = entitySpec[data.name].has[resource][1]
 			else
 			    data.has[resource][1] = data.has[resource][1] - 1
 			end
 			entity.has[resource][1] = entity.has[resource][1] + 1
+			
+			print(entity.name.." is swapping "..dresource.." for "..data.name.."'s "..resource)
 		    end
 		end
-		
 	    end
 	end
     end
@@ -105,7 +109,7 @@ function getHas(entity)
 end
 
 function makeMakes(entity)
-    
+    print("gotcalled")
     --entity produces what they make if they have the prerequisites
     for resource, spec in pairs(entity.makes) do
 	if spec.uses then
@@ -117,6 +121,7 @@ function makeMakes(entity)
 	end
     end
     entity.has.food[1] = entity.has.food[1] -1 
+    entity.has.land[1] = entitySpec[entity.name].has.land[1]
     if entity.has.food[1] < 0 then
 	entity.alive = false
     end
@@ -133,6 +138,7 @@ function love.load()
 end
 
 function love.draw()
+    LG.print("click node to see entities, press a to advance a turn",10,10)
     --draws the nodes
     for i, j in ipairs(nodes) do
 	LG.setColor(j.color[1],j.color[2],j.color[3])
@@ -170,7 +176,7 @@ end
 function love.keypressed(key)
     if key == "a" then
 	for i, j in pairs(entityStore) do
-	    print(i)
+	    --print(i)
 	    if j.alive then
 		entityTurn(j)
 	    end
@@ -192,7 +198,7 @@ end
 function makeNode(xi,yi)
     --takes a coordinate and creates a node at that location
     table.insert(nodes,{name=xi,x=xi,y=yi,color={math.random(240)+15,math.random(240)+15,math.random(240)+15},links={},entities={entitySpec.lord}})
-    populateNode(nodes[#nodes],math.random(10)+2)
+    populateNode(nodes[#nodes],4)--math.random(10)+2)
 end
 
 function linkNodes()
@@ -214,7 +220,7 @@ function populateNode(node,popi)
   local pop = 0
   while pop < popi do
       for i, j in pairs(entitySpec) do
-	  if math.random(6)>2 then
+	  if math.random(6)>3 then
 	      pop = pop + 1
 	      table.insert(entityStore,j)
 	      entityStore[#entityStore].node=node
