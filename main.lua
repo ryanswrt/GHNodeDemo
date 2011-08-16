@@ -67,11 +67,9 @@ function getWants(entity)
     --entity searches through local/allied entities to fulfil wants
 --     for name, data in ipairs(entity.node) do
 -- 	for resource, amount in ipairs(entity.wants) do
--- 	    for i, j in ipairs(data.has) do
--- 		if resource == i then
--- 		    supply()
--- 		end
--- 	    end
+-- 	    if data.has["resource"] ~= 0 and data.wants["resource"]=0 then
+--	       
+--	    end
 -- 	end
 --     end
 end
