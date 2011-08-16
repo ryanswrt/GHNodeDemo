@@ -1,0 +1,5 @@
+Demo for how nodes can work
+
+Needs Love2d (http://love2d.org/) to run
+
+To run, type love ./directory, or zip main.lua as demo.love
