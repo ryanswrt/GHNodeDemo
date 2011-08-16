@@ -20,8 +20,9 @@ function initiateEntities()
     for i, j in pairs(entitySpec) do
 	--print(i)
 	j.name = i
+	j.id = ""
 	j.alive = true
-	j.has={food={40},land={4},wood={0},gold={10},stone={0},ore={0},iron={0}}
+	j.has={food={40},land={0},wood={0},gold={10},stone={0},ore={0},iron={0}}
 	j.wants={food={1},land={0},wood={0},gold={1},stone={0},ore={0},iron={0}}
 	j.makes={food={0},land={0},wood={0},gold={0},stone={0},ore={0},iron={0}}
 	j.allies={}
@@ -60,30 +61,33 @@ function entityTurn(entity)
 end
 
 function sourceWants(entity)
---entity searches through local/allied entities to fulfil wants
+--entity searches through alive local/allied entities to fulfil wants, and then searches through entities wants to find things to trade
     for name, data in ipairs(entity.node.entities) do
     --print("checking "..name)
 	for resource, amount in pairs(entity.wants) do
-	    print(entity.name .. " wants "..amount[1] .. resource)
-	    if amount[1]>0 and data.has[resource][1] > 0 and data.wants[resource][1]<=data.has[resource][1] then
+	    --print(entity.name .. " wants "..amount[1] .. resource)
+	    if amount[1]>0 and data.has[resource][1] > 0 and data.wants[resource][1]<=data.has[resource][1] and data.id ~= entity.id and data.alive then
 	      --print(name .. " has wants for " .. entity.name) 
 		for dresource, damount in pairs(data.wants) do
-		    if damount[1]>0 and entity.has[dresource][1] > 0 and entity.wants[dresource][1]<=entity.has[dresource][1] then
-			if entity.has[dresource].always then
-			    entity.has[dresource][1] = entitySpec[entity.name].has[dresource][1]
-			else
-			    entity.has[dresource][1] = entity.has[dresource][1] - 1
-			end
+		    if damount[1]>0 and entity.has[dresource][1] > 0 and entity.wants[dresource][1]<=entity.has[dresource][1] and resource ~= dresource then
+			
+			--if entity.has[dresource].always then
+			--    entity.has[dresource][1] = entitySpec[entity.name].has[dresource][1]
+			--else
+			entity.has[dresource][1] = entity.has[dresource][1] - 1
+			if entity.has[dresource].always then entity.has[dresource][1] = entity.has[dresource][1] + 1 end
+			--end
 			data.has[dresource][1] = data.has[dresource][1] + 1
 			
-			if data.has[resource].always then
-			    data.has[resource][1] = entitySpec[data.name].has[resource][1]
-			else
-			    data.has[resource][1] = data.has[resource][1] - 1
-			end
+			--if data.has[resource].always then
+			--    data.has[resource][1] = entitySpec[data.name].has[resource][1]
+			--else
+			data.has[resource][1] = data.has[resource][1] - 1
+			--end
+			if data.has[resource].always then data.has[resource][1] = data.has[resource][1] + 1 end
 			entity.has[resource][1] = entity.has[resource][1] + 1
 			
-			print(entity.name.." is swapping "..dresource.." for "..data.name.."'s "..resource)
+			print(entity.name..entity.id.." is swapping "..dresource.." for "..data.name..data.id.."'s "..resource)
 		    end
 		end
 	    end
@@ -92,6 +96,7 @@ function sourceWants(entity)
 end
 
 function getWants(entity)
+    --formats a string of wants
     local wants = "Wants: "
     for i, j in pairs(entity.wants) do
 	if j[1] ~= 0 then wants = wants .. i .. ":" .. j[1] .. " "end
@@ -101,6 +106,7 @@ function getWants(entity)
 end
 
 function getHas(entity)
+    --formats a string of wants
     local has = "Has: "
     for i, j in pairs(entity.has) do
 	if j[1] ~= 0 then has = has .. i .. ":" .. j[1] .. " "end
@@ -120,8 +126,10 @@ function makeMakes(entity)
 	    end
 	end
     end
-    entity.has.food[1] = entity.has.food[1] -1 
-    entity.has.land[1] = entitySpec[entity.name].has.land[1]
+    entity.has.food[1] = entity.has.food[1] -1
+    if not entity.has.land.always then entity.has.land[1] = 0 end
+    --print(entity.name.." "..entitySpec[entity.name].has.land[1])
+    --entity.has.land[1] = entitySpec[entity.name].has.land[1]
     if entity.has.food[1] < 0 then
 	entity.alive = false
     end
@@ -153,9 +161,9 @@ function love.draw()
     LG.print(activeNode.name,400,10)
     for i, j in ipairs(activeNode.entities) do
 	LG.setColor(255,255,255)
-	LG.print(j.name,400,(i-1)*50+25)
-	LG.print(getWants(j),480,(i-1)*50+25)
-	LG.print(getHas(j),480,(i-1)*50+50)
+	LG.print(j.name..j.id,400,(i-1)*50+25)
+	LG.print(getWants(j),490,(i-1)*50+25)
+	LG.print(getHas(j),490,(i-1)*50+50)
     end
 end
 
@@ -222,7 +230,9 @@ function populateNode(node,popi)
       for i, j in pairs(entitySpec) do
 	  if math.random(6)>3 then
 	      pop = pop + 1
-	      table.insert(entityStore,j)
+	      local copy = j
+	      copy.id = #entityStore
+	      table.insert(entityStore,copy)
 	      entityStore[#entityStore].node=node
 	      table.insert(node.entities,entityStore[#entityStore])
 	  end
