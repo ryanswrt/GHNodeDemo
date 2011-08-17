@@ -20,7 +20,7 @@ function initiateEntities()
     for i, j in pairs(entitySpec) do
 	--print(i)
 	j.name = i
-	j.id = ""
+	j.id = 1
 	j.alive = true
 	j.has={food={40},land={0},wood={0},gold={10},stone={0},ore={0},iron={0}}
 	j.wants={food={1},land={0},wood={0},gold={1},stone={0},ore={0},iron={0}}
@@ -183,10 +183,12 @@ end
 
 function love.keypressed(key)
     if key == "a" then
-	for i, j in pairs(entityStore) do
-	    --print(i)
-	    if j.alive then
-		entityTurn(j)
+	for x, y in pairs(nodes) do
+	    for i, j in pairs(y.entities) do
+		print(j.id)
+		if j.alive then
+		    entityTurn(j)
+		end
 	    end
 	end
     end
@@ -205,7 +207,8 @@ end
 
 function makeNode(xi,yi)
     --takes a coordinate and creates a node at that location
-    table.insert(nodes,{name=xi,x=xi,y=yi,color={math.random(240)+15,math.random(240)+15,math.random(240)+15},links={},entities={entitySpec.lord}})
+    table.insert(nodes,{name=xi,x=xi,y=yi,color={math.random(240)+15,math.random(240)+15,math.random(240)+15},links={},entities={}})
+    table.insert(nodes[#nodes].entities,makeEntity("lord",nodes[#nodes]))
     populateNode(nodes[#nodes],4)--math.random(10)+2)
 end
 
@@ -223,6 +226,14 @@ function linkNodes()
     end
 end
 
+function makeEntity(class,node)
+  local e = deepcopy(entitySpec[class])
+  e.node = node
+  e.id = #entityStore
+  table.insert(entityStore,e)
+  return e
+end
+
 function populateNode(node,popi)
   --Inserts a completely random selection of entities into a node
   local pop = 0
@@ -230,12 +241,32 @@ function populateNode(node,popi)
       for i, j in pairs(entitySpec) do
 	  if math.random(6)>3 then
 	      pop = pop + 1
-	      local copy = j
-	      copy.id = #entityStore
-	      table.insert(entityStore,copy)
-	      entityStore[#entityStore].node=node
-	      table.insert(node.entities,entityStore[#entityStore])
+	      table.insert(node.entities,makeEntity(i,node))
 	  end
       end  
   end
+end
+
+function table.copy(t)
+  local u = { }
+  for k, v in pairs(t) do u[k] = v end
+  return setmetatable(u, getmetatable(t))
+end
+
+function deepcopy(object)
+    local lookup_table = {}
+    local function _copy(object)
+        if type(object) ~= "table" then
+            return object
+        elseif lookup_table[object] then
+            return lookup_table[object]
+        end
+        local new_table = {}
+        lookup_table[object] = new_table
+        for index, value in pairs(object) do
+            new_table[_copy(index)] = _copy(value)
+        end
+        return setmetatable(new_table, getmetatable(object))
+    end
+    return _copy(object)
 end
