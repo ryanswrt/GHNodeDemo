@@ -11,6 +11,7 @@ entitySpec = {
     merchant = {has={},wants={},makes={}},
     miner = {has={},wants={},makes={}},
     smith = {has={},wants={},makes={}},
+    smelter = {has={},wants={},makes={}},
     lord = {has={},wants={},makes={}}}
 
 entityStore ={}
@@ -22,28 +23,35 @@ function initiateEntities()
 	j.name = i
 	j.id = 1
 	j.alive = true
-	j.has={food={40},land={0},wood={0},gold={10},stone={0},ore={0},iron={0}}
-	j.wants={food={1},land={0},wood={0},gold={1},stone={0},ore={0},iron={0}}
-	j.makes={food={0},land={0},wood={0},gold={0},stone={0},ore={0},iron={0}}
+	j.has={food={40},land={0},wood={0},gold={10},stone={0},ore={0},iron={0}, tools={1}}
+	j.wants={land={0},wood={0},gold={1},stone={0},ore={0},iron={0}, tools={0},food={1}}
+	j.makes={food={0},land={0},wood={0},gold={0},stone={0},ore={0},iron={0}, tools={0}}
 	j.allies={}
 	j.node={}
     end
     --print(entitySpec.farmer.name)
     
     entitySpec.farmer.wants.land={1}
-    entitySpec.farmer.makes.food={uses={resource="land",num=1},4}
+    entitySpec.farmer.wants.tools={1}
+    entitySpec.farmer.makes.food={uses={{resource="land",num=1},{resource="tools",num=1}},4}
     
     entitySpec.lord.has.land={always=true,4}
     
     entitySpec.woodcutter.wants.land={1}
-    entitySpec.woodcutter.makes.wood={uses={resource="land",num=1},4}
+    entitySpec.woodcutter.wants.tools={1}
+    entitySpec.woodcutter.makes.wood={uses={{resource="land",num=1},{resource="tools",num=1}},4}
     
     entitySpec.miner.wants.land={1}
-    entitySpec.miner.makes.stone={uses={resource="land",num=1},chance=50,4}
-    entitySpec.miner.makes.ore={uses={resource="land",num=1},chance=50,2}
+    entitySpec.miner.wants.tools={1}
+    entitySpec.miner.makes.stone={uses={{resource="land",num=1},{resource="tools",num=1}},chance=50,4}
+    entitySpec.miner.makes.ore={uses={{resource="land",num=1},{resource="tools",num=1}},chance=50,2}
     
-    entitySpec.smith.wants.ore={1}
-    entitySpec.smith.makes.iron={uses={resource="ore",num=2},1}
+    entitySpec.smelter.wants.ore={1}
+    entitySpec.smelter.makes.iron={uses={{resource="ore",num=1},{resource="tools",num=1}},1}
+    
+    entitySpec.smith.wants.iron={1}
+    entitySpec.smith.wants.wood={1}
+    entitySpec.smith.makes.tools={uses={{resource="iron",num=1},{resource="wood",num=1}},4}
     
     for resource, value in pairs(entitySpec.merchant.wants) do
 	if value[1] ~= 0 then
@@ -56,38 +64,49 @@ function initiateEntities()
 end
 
 function entityTurn(entity)
+    calcWants(entity)
     sourceWants(entity)
     makeMakes(entity)
+end
+
+function calcWants(entity)
+    for r, spec in pairs(entity.makes) do
+	if spec.uses then for resource,usesspec in pairs(spec.uses) do
+	    if entity.has[usesspec.resource][1]*2 < usesspec.num then
+		    print(entity.name .. " wants " .. usesspec.resource) 
+		    entity.wants[usesspec.resource][1] = usesspec.num
+	    else
+		    print(entity.name .. " doesn't want " .. usesspec.resource)
+		    entity.wants[usesspec.resource][1] = 0
+	    end
+	    end
+	end	
+    end	
+    
+    if entity.has.food[1]<4 then entity.wants.food[1] = 1 else entity.wants.food[1] = 0 end
 end
 
 function sourceWants(entity)
 --entity searches through alive local/allied entities to fulfil wants, and then searches through entities wants to find things to trade
     for name, data in ipairs(entity.node.entities) do
-    --print("checking "..name)
 	for resource, amount in pairs(entity.wants) do
-	    --print(entity.name .. " wants "..amount[1] .. resource)
-	    if amount[1]>0 and data.has[resource][1] > 0 and data.wants[resource][1]<=data.has[resource][1] and data.id ~= entity.id and data.alive then
-	      --print(name .. " has wants for " .. entity.name) 
+	    if amount[1]>0 and data.has[resource][1] > 0 and data.wants[resource][1]<=data.has[resource][1] and data.id ~= entity.id and data.alive then 
 		for dresource, damount in pairs(data.wants) do
 		    if damount[1]>0 and entity.has[dresource][1] > 0 and entity.wants[dresource][1]<=entity.has[dresource][1] and resource ~= dresource then
 			
-			--if entity.has[dresource].always then
-			--    entity.has[dresource][1] = entitySpec[entity.name].has[dresource][1]
-			--else
+
 			entity.has[dresource][1] = entity.has[dresource][1] - 1
 			if entity.has[dresource].always then entity.has[dresource][1] = entity.has[dresource][1] + 1 end
-			--end
+
 			data.has[dresource][1] = data.has[dresource][1] + 1
 			
-			--if data.has[resource].always then
-			--    data.has[resource][1] = entitySpec[data.name].has[resource][1]
-			--else
 			data.has[resource][1] = data.has[resource][1] - 1
-			--end
+
 			if data.has[resource].always then data.has[resource][1] = data.has[resource][1] + 1 end
 			entity.has[resource][1] = entity.has[resource][1] + 1
 			
 			print(entity.name..entity.id.." is swapping "..dresource.." for "..data.name..data.id.."'s "..resource)
+			return
 		    end
 		end
 	    end
@@ -114,18 +133,8 @@ function getHas(entity)
     return has
 end
 
-function makeMakes(entity)
-    print("gotcalled")
-    --entity produces what they make if they have the prerequisites
-    for resource, spec in pairs(entity.makes) do
-	if spec.uses then
-	    if entity.has[spec.uses.resource][1] ~= 0 then
-	       print(entity.name .. " has resources for making" .. resource) 
-	       entity.has[resource][1] = entity.has[resource][1] + spec[1]
-	       entity.has[spec.uses.resource][1] = entity.has[spec.uses.resource][1] - spec.uses.num
-	    end
-	end
-    end
+function makeMakes(entity)  
+    local counter = 0
     entity.has.food[1] = entity.has.food[1] -1
     if not entity.has.land.always then entity.has.land[1] = 0 end
     --print(entity.name.." "..entitySpec[entity.name].has.land[1])
@@ -133,6 +142,23 @@ function makeMakes(entity)
     if entity.has.food[1] < 0 then
 	entity.alive = false
     end
+    --entity produces what they make if they have the prerequisites
+    for r, spec in pairs(entity.makes) do
+	if spec.uses then for resource,usesspec in pairs(spec.uses) do
+	    if entity.has[usesspec.resource] ~= 0 then
+	    counter = counter+1
+		if counter == #spec.uses then
+		    print(entity.name .. " has resources for making" .. r) 
+		    entity.has[usesspec.resource][1] = entity.has[usesspec.resource][1] + spec[1]
+		    entity.has[usesspec.resource][1]= entity.has[usesspec.resource][1] - usesspec.num
+		end
+		end
+	    end
+	end	
+
+    end	
+
+
 end
 
 function love.load()
@@ -209,7 +235,7 @@ function makeNode(xi,yi)
     --takes a coordinate and creates a node at that location
     table.insert(nodes,{name=xi,x=xi,y=yi,color={math.random(240)+15,math.random(240)+15,math.random(240)+15},links={},entities={}})
     table.insert(nodes[#nodes].entities,makeEntity("lord",nodes[#nodes]))
-    populateNode(nodes[#nodes],4)--math.random(10)+2)
+    populateNode(nodes[#nodes],16)--math.random(10)+2)
 end
 
 function linkNodes()
