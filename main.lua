@@ -1,67 +1,83 @@
-LG = love.graphics 
-nodes = {}
+--require "debug_unstable"
 
+LG = love.graphics 
+
+require "specs"
+
+
+nodes = {}
+drawmode="overview"
+--essentially game modes
+mode = {
+overview ={ --when you see all the nodes/cities
+
+draw=function()
+    --draws the nodes
+    for i, j in ipairs(nodes) do
+	LG.setColor(j.color[1],j.color[2],j.color[3])
+	if activeNode == j then LG.setColor(255,255,255) end
+	LG.circle('fill',j.x,j.y,5)
+	--draws the links between nodes
+	for k, l in ipairs(j.links) do
+	    LG.line(j.x,j.y,l.x,l.y)
+	end
+    end
+    --draws the entities in a node
+    LG.print(activeNode.name,400,10)
+
+end,
+
+click=function(x,y,button)
+      --checks if there is a node nearby, and makes it active. if not, clears the current node
+    activeNode ={}
+    activeNode.entities = {}
+    activeNode.name = "blank"
+    for i, j in ipairs(nodes) do
+	if x - j.x < 10 and x - j.x > -10 and y - j.y < 10 and y - j.y > -10 then
+	    activeNode=j
+	end
+    end
+    activeEnt =nil
+    drawmode="node"
+end
+},
+
+node={ --when you are looking at a specific city
+draw=function()
+    for i, j in ipairs(activeNode.entities) do
+	LG.setColor(white)
+	LG.print(j.name..j.id,j.x,j.y-10)
+	LG.setColor(j.color)
+	LG.circle('fill',j.x,j.y,5)
+	
+    end
+    
+    if activeEnt then
+	  LG.print(getWants(activeEnt),400,10)
+	  LG.print(getHas(activeEnt),400,20)
+	  for i,ally in ipairs(activeEnt.allies) do
+	      LG.line(activeEnt.x,activeEnt.y,ally.x,ally.y)
+	      LG.print(ally.name..ally.id,400,30+i*10)
+	  end
+	end
+
+end,
+click=function(x,y,button)
+    activeEnt ={}
+    for i, j in ipairs(activeNode.entities) do
+	if x - j.x < 10 and x - j.x > -10 and y - j.y < 10 and y - j.y > -10 then
+	    activeEnt=j
+	    drawmode="node"
+	    break	    
+	end
+	drawmode="overview"
+    end
+end
+}
+}
 activeNode = {}
 activeNode.entities = {}
 activeNode.name = "blank"
-
-entitySpec = {
-    farmer = {has={},wants={},makes={}},
-    woodcutter = {has={},wants={},makes={}},
-    merchant = {has={},wants={},makes={}},
-    miner = {has={},wants={},makes={}},
-    smith = {has={},wants={},makes={}},
-    smelter = {has={},wants={},makes={}},
-    lord = {has={},wants={},makes={}}}
-
-entityStore ={}
-
-function initiateEntities()
-    --base spec for every entity
-    for i, j in pairs(entitySpec) do
-	--print(i)
-	j.name = i
-	j.id = 1
-	j.alive = true
-	j.has={food={40},land={0},wood={0},gold={10},stone={0},ore={0},iron={0}, tools={1}}
-	j.wants={land={0},wood={0},gold={1},stone={0},ore={0},iron={0}, tools={0},food={1}}
-	j.makes={food={0},land={0},wood={0},gold={0},stone={0},ore={0},iron={0}, tools={0}}
-	j.allies={}
-	j.node={}
-    end
-    --print(entitySpec.farmer.name)
-    
-    entitySpec.farmer.wants.land={1}
-    entitySpec.farmer.wants.tools={1}
-    entitySpec.farmer.makes.food={uses={{resource="land",num=1},{resource="tools",num=1}},4}
-    
-    entitySpec.lord.has.land={always=true,4}
-    
-    entitySpec.woodcutter.wants.land={1}
-    entitySpec.woodcutter.wants.tools={1}
-    entitySpec.woodcutter.makes.wood={uses={{resource="land",num=1},{resource="tools",num=1}},4}
-    
-    entitySpec.miner.wants.land={1}
-    entitySpec.miner.wants.tools={1}
-    entitySpec.miner.makes.stone={uses={{resource="land",num=1},{resource="tools",num=1}},chance=50,4}
-    entitySpec.miner.makes.ore={uses={{resource="land",num=1},{resource="tools",num=1}},chance=50,2}
-    
-    entitySpec.smelter.wants.ore={1}
-    entitySpec.smelter.makes.iron={uses={{resource="ore",num=1},{resource="tools",num=1}},1}
-    
-    entitySpec.smith.wants.iron={1}
-    entitySpec.smith.wants.wood={1}
-    entitySpec.smith.makes.tools={uses={{resource="iron",num=1},{resource="wood",num=1}},4}
-    
-    for resource, value in pairs(entitySpec.merchant.wants) do
-	if value[1] ~= 0 then
-	    value[1] = 1
-	end
-    end
-    
-    entitySpec.merchant.has.gold={100}
-    
-end
 
 function entityTurn(entity)
     calcWants(entity)
@@ -83,17 +99,18 @@ function calcWants(entity)
 	end	
     end	
     
-    if entity.has.food[1]<4 then entity.wants.food[1] = 1 else entity.wants.food[1] = 0 end
+    if entity.has.food[1]<40 then entity.wants.food[1] = 1 else entity.wants.food[1] = 0 end
 end
 
 function sourceWants(entity)
 --entity searches through alive local/allied entities to fulfil wants, and then searches through entities wants to find things to trade
-    for name, data in ipairs(entity.node.entities) do
+    for node, nents in ipairs(entity.node.links) do
+    for name, data in ipairs(nents.entities) do
 	for resource, amount in pairs(entity.wants) do
 	    if amount[1]>0 and data.has[resource][1] > 0 and data.wants[resource][1]<=data.has[resource][1] and data.id ~= entity.id and data.alive then 
+		print(entity.name.." wants "..resource)
 		for dresource, damount in pairs(data.wants) do
-		    if damount[1]>0 and entity.has[dresource][1] > 0 and entity.wants[dresource][1]<=entity.has[dresource][1] and resource ~= dresource then
-			
+		    if damount[1]>0 and entity.has[dresource][1] > 0 and entity.wants[dresource][1]*4<=entity.has[dresource][1] and resource ~= dresource then
 
 			entity.has[dresource][1] = entity.has[dresource][1] - 1
 			if entity.has[dresource].always then entity.has[dresource][1] = entity.has[dresource][1] + 1 end
@@ -104,14 +121,23 @@ function sourceWants(entity)
 
 			if data.has[resource].always then data.has[resource][1] = data.has[resource][1] + 1 end
 			entity.has[resource][1] = entity.has[resource][1] + 1
-			
+			table.insert(data.allies,entity)
+			table.insert(entity.allies,data)
 			print(entity.name..entity.id.." is swapping "..dresource.." for "..data.name..data.id.."'s "..resource)
 			return
+		    else
+			table.insert(entity.enemies,data)
+			for i,j in ipairs(entity.enemies) do print(j.name) end
 		    end
 		end
 	    end
 	end
     end
+    end
+end
+
+function checkifenemy(entity,enemyid)
+    
 end
 
 function getWants(entity)
@@ -135,36 +161,33 @@ end
 
 function makeMakes(entity)  
     local counter = 0
-    entity.has.food[1] = entity.has.food[1] -1
-    if not entity.has.land.always then entity.has.land[1] = 0 end
-    --print(entity.name.." "..entitySpec[entity.name].has.land[1])
-    --entity.has.land[1] = entitySpec[entity.name].has.land[1]
+    
     if entity.has.food[1] < 0 then
 	entity.alive = false
     end
+    
     --entity produces what they make if they have the prerequisites
     for r, spec in pairs(entity.makes) do
 	if spec.uses then for resource,usesspec in pairs(spec.uses) do
-	    if entity.has[usesspec.resource] ~= 0 then
+	    if entity.has[usesspec.resource][1] > 0 then
 	    counter = counter+1
 		if counter == #spec.uses then
 		    print(entity.name .. " has resources for making" .. r) 
-		    entity.has[usesspec.resource][1] = entity.has[usesspec.resource][1] + spec[1]
+		    entity.has[r][1] = entity.has[r][1] + spec[1]
 		    entity.has[usesspec.resource][1]= entity.has[usesspec.resource][1] - usesspec.num
 		end
 		end
 	    end
 	end	
+    end	    
+    
 
-    end	
-
-
+    entity.has.food[1] = entity.has.food[1] -1
+    if not entity.has.land.always then entity.has.land[1] = 0 end
 end
 
 function love.load()
     math.randomseed( os.time() )
-    
-    initiateEntities()
     makeNodes(2,50,50)
     linkNodes()
     populateNode(nodes[1],7)
@@ -173,41 +196,18 @@ end
 
 function love.draw()
     LG.print("click node to see entities, press a to advance a turn",10,10)
-    --draws the nodes
-    for i, j in ipairs(nodes) do
-	LG.setColor(j.color[1],j.color[2],j.color[3])
-	if activeNode == j then LG.setColor(255,255,255) end
-	LG.circle('fill',j.x,j.y,5)
-	--draws the links between nodes
-	for k, l in ipairs(j.links) do
-	    LG.line(j.x,j.y,l.x,l.y)
-	end
-    end
-    --draws the entities in a node
-    LG.print(activeNode.name,400,10)
-    for i, j in ipairs(activeNode.entities) do
-	LG.setColor(255,255,255)
-	LG.print(j.name..j.id,400,(i-1)*50+25)
-	LG.print(getWants(j),490,(i-1)*50+25)
-	LG.print(getHas(j),490,(i-1)*50+50)
-    end
+    LG.print(getHas(player),10,500)
+    mode[drawmode].draw()
 end
 
 function love.mousepressed(x,y,button)
-    --checks if there is a node nearby, and makes it active. if not, clears the current node
-    activeNode ={}
-    activeNode.entities = {}
-    activeNode.name = "blank"
-    for i, j in ipairs(nodes) do
-	if x - j.x < 10 and x - j.x > -10 and y - j.y < 10 and y - j.y > -10 then
-	    activeNode=j
-	end
-    end
-    
-    
+    mode[drawmode].click(x,y,button)    
 end
 
 function love.keypressed(key)
+    if key == "s" then
+      drawmode="overview"
+    end
     if key == "a" then
 	for x, y in pairs(nodes) do
 	    for i, j in pairs(y.entities) do
@@ -235,7 +235,7 @@ function makeNode(xi,yi)
     --takes a coordinate and creates a node at that location
     table.insert(nodes,{name=xi,x=xi,y=yi,color={math.random(240)+15,math.random(240)+15,math.random(240)+15},links={},entities={}})
     table.insert(nodes[#nodes].entities,makeEntity("lord",nodes[#nodes]))
-    populateNode(nodes[#nodes],16)--math.random(10)+2)
+    populateNode(nodes[#nodes],12)--math.random(10)+2)
 end
 
 function linkNodes()
@@ -254,8 +254,10 @@ end
 
 function makeEntity(class,node)
   local e = deepcopy(entitySpec[class])
+  local size = #entityStore
   e.node = node
-  e.id = #entityStore
+  e.id = size
+  e.x,e.y = math.random((size+1)*10)+50,math.random((size+1)*10)+50
   table.insert(entityStore,e)
   return e
 end
