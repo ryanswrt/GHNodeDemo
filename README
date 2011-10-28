@@ -1,5 +1,5 @@
-Demo for how nodes can work
+Basic Economical 2d Trading Sim
 
 Needs Love2d (http://love2d.org/) to run
 
-To run, type love ./directory, or zip main.lua as demo.love
+To run, type love ./directory, or zip the contents as demo.love

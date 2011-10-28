@@ -279,7 +279,7 @@ function makeEntity(class,node)
   e.id = size
   e.x,e.y = math.random((size+1)*10)+50,math.random((size+1)*10)+50
   for i, j in ipairs(nodes) do
-      while e.x - j.x < 30 and e.x - j.x > -30 and e.y - j.y < 30 and e.y - j.y > -30 do
+      while e.x - j.x < 30 and e.x - j.x > -30 and j.x < 800 and e.y - j.y < 30 and e.y - j.y > -30 and j.y < 800 do
 	  e.x,e.y = math.random((5)*10)+50,math.random((5)*10)+50
       end
   end
@@ -291,6 +291,7 @@ function populateNode(node,popi)
   --Inserts a completely random selection of entities into a node
   local pop = 0
   while pop < popi do
+  print (pop)
       for i, j in pairs(entitySpec) do
 	  if math.random(6)>3 then
 	      pop = pop + 1
