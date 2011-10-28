@@ -2,9 +2,11 @@
 
 LG = love.graphics 
 
+goo = require 'goo/goo'
+anim = require 'anim/anim'
 require "specs"
 
-
+activeEnt ={}
 nodes = {}
 drawmode="overview"
 --essentially game modes
@@ -35,10 +37,11 @@ click=function(x,y,button)
     for i, j in ipairs(nodes) do
 	if x - j.x < 10 and x - j.x > -10 and y - j.y < 10 and y - j.y > -10 then
 	    activeNode=j
+	    drawmode="node"
 	end
     end
     activeEnt =nil
-    drawmode="node"
+    
 end
 },
 
@@ -53,8 +56,8 @@ draw=function()
     end
     
     if activeEnt then
-	  LG.print(getWants(activeEnt),400,10)
-	  LG.print(getHas(activeEnt),400,20)
+	  LG.print(getWantsButtons(activeEnt),400,10)
+	  LG.print(getHasButtons(activeEnt),400,30)
 	  for i,ally in ipairs(activeEnt.allies) do
 	      LG.line(activeEnt.x,activeEnt.y,ally.x,ally.y)
 	      LG.print(ally.name..ally.id,400,30+i*10)
@@ -63,14 +66,17 @@ draw=function()
 
 end,
 click=function(x,y,button)
-    activeEnt ={}
+    
+    
     for i, j in ipairs(activeNode.entities) do
 	if x - j.x < 10 and x - j.x > -10 and y - j.y < 10 and y - j.y > -10 then
+	    if tradepanel then tradepanel:destroy() end
+	    tradepanel = goo.panel:new()
 	    activeEnt=j
 	    drawmode="node"
 	    break	    
 	end
-	drawmode="overview"
+	--drawmode="overview"
     end
 end
 }
@@ -104,8 +110,8 @@ end
 
 function sourceWants(entity)
 --entity searches through alive local/allied entities to fulfil wants, and then searches through entities wants to find things to trade
-    for node, nents in ipairs(entity.node.links) do
-    for name, data in ipairs(nents.entities) do
+    --for node, nents in ipairs(entity.node.links) do this searches through linked nodes, too excessive for the moment, want to restrict it to traders
+    for name, data in ipairs(entity.node.entities) do
 	for resource, amount in pairs(entity.wants) do
 	    if amount[1]>0 and data.has[resource][1] > 0 and data.wants[resource][1]<=data.has[resource][1] and data.id ~= entity.id and data.alive then 
 		print(entity.name.." wants "..resource)
@@ -132,7 +138,7 @@ function sourceWants(entity)
 		end
 	    end
 	end
-    end
+    --end
     end
 end
 
@@ -150,14 +156,79 @@ function getWants(entity)
     
 end
 
+function getWantsButtons(entity)
+    --creates a list of buttons
+    local wants = "Wants: "
+    local x = 0
+    for i, j in pairs(entity.wants) do
+	if j[1] ~= 0 then 
+	    x = x+1
+	    local button = goo.button:new(tradepanel)
+		button:setPos( 400+x*60, 10 )
+		button:setText( i.." "..j[1] )
+		button:sizeToText()
+		local redStyle = {
+		backgroundColor = {255,0,0},
+		backgroundColorHover = {125,0,0},
+		borderColor = {0,0,0,0},
+		borderColorHover = {0,0,0,0},
+	}
+		button.onClick = function(self,button)
+			if button == 'l' then
+				self:setStyle( redStyle )
+				playertrading = i
+				if playergetting and player.has[i][1] > 0 then 
+				player.has[playergetting][1]=player.has[playergetting][1]+1
+				entity.has[playergetting][1]=entity.has[playergetting][1]-1
+				end
+			end
+		end
+	end
+    end
+    return wants
+    
+end
+
+
 function getHas(entity)
-    --formats a string of wants
+    --formats a string of what the entity has
     local has = "Has: "
     for i, j in pairs(entity.has) do
 	if j[1] ~= 0 then has = has .. i .. ":" .. j[1] .. " "end
     end
     return has
 end
+
+function getHasButtons(entity)
+    --formats a string of what the entity has
+    local has = "Has: "
+    local x = 0
+    for i, j in pairs(entity.has) do
+	if j[1] ~= 0 then 
+	  	    x = x+1
+	    local button = goo.button:new(tradepanel)
+		button:setPos( 400+x*60, 40 )
+		button:setText( i.." "..j[1] )
+		button:sizeToText()
+		local redStyle = {
+		backgroundColor = {255,0,0},
+		backgroundColorHover = {125,0,0},
+		borderColor = {0,0,0,0},
+		borderColorHover = {0,0,0,0},
+	}
+		button.onClick = function(self,button)
+			if button == 'l' then
+				print "a"
+				self:setStyle( redStyle )
+				playergetting = i
+				end
+		end
+	end
+    end
+    return has
+end
+
+
 
 function makeMakes(entity)  
     local counter = 0
@@ -188,30 +259,48 @@ end
 
 function love.load()
     math.randomseed( os.time() )
+    
     makeNodes(2,50,50)
     linkNodes()
     populateNode(nodes[1],7)
+    goo:load()
     
 end
 
+function love.update(dt)
+	goo:update(dt)
+	anim:update(dt)
+end
+
 function love.draw()
-    LG.print("click node to see entities, press a to advance a turn",10,10)
-    LG.print(getHas(player),10,500)
-    mode[drawmode].draw()
+    goo:draw()
+    LG.print("click node to see entities, press 'a' to advance a turn",10,10)
+    LG.print("press 's' to return to main map",10,20)
+    LG.print("You "..getHas(player),10,500)
+    mode[drawmode].draw()    
 end
 
 function love.mousepressed(x,y,button)
-    mode[drawmode].click(x,y,button)    
+    mode[drawmode].click(x,y,button)
+    goo:mousepressed( x, y, button )
+end
+
+function love.mousereleased( x, y, button )
+	goo:mousereleased( x, y, button )
+end
+
+function love.keyreleased( key, unicode )
+	goo:keyreleased( key, unicode )
 end
 
 function love.keypressed(key)
+    goo:keypressed( key, unicode )
     if key == "s" then
       drawmode="overview"
     end
     if key == "a" then
 	for x, y in pairs(nodes) do
 	    for i, j in pairs(y.entities) do
-		print(j.id)
 		if j.alive then
 		    entityTurn(j)
 		end
@@ -258,6 +347,11 @@ function makeEntity(class,node)
   e.node = node
   e.id = size
   e.x,e.y = math.random((size+1)*10)+50,math.random((size+1)*10)+50
+  for i, j in ipairs(nodes) do
+      while e.x - j.x < 30 and e.x - j.x > -30 and e.y - j.y < 30 and e.y - j.y > -30 do
+	  e.x,e.y = math.random((5)*10)+50,math.random((5)*10)+50
+      end
+  end
   table.insert(entityStore,e)
   return e
 end

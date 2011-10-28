@@ -6,6 +6,7 @@ yellow={250,250,50}
 brown={200,120,50}
 white={255,255,255}
 
+
 player={
 has={food={40},land={0}, swords={0},wood={0},gold={10},stone={0},ore={0},iron={0}, tools={0}}
 }

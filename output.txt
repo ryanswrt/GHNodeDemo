@@ -1,0 +1,1016 @@
+smith115 is swapping food for merchant110's gold
+smith has resources for makingtools
+116
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner116 is swapping gold for merchant110's food
+miner has resources for makingore
+0
+lord0 is swapping gold for merchant1's food
+1
+merchant1 is swapping gold for lord0's food
+2
+smelter wants ore
+smelter doesn't want tools
+smelter2 is swapping gold for lord0's food
+smelter has resources for makingiron
+3
+merchant3 is swapping gold for lord0's food
+4
+farmer wants land
+farmer doesn't want tools
+farmer4 is swapping food for lord0's land
+farmer has resources for makingfood
+5
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner5 is swapping food for lord0's land
+miner has resources for makingore
+6
+lord6 is swapping gold for lord0's food
+7
+farmer wants land
+farmer doesn't want tools
+farmer7 is swapping food for lord0's land
+farmer has resources for makingfood
+8
+smith wants iron
+smith doesn't want wood
+smith8 is swapping gold for lord0's food
+smith has resources for makingtools
+9
+smelter wants ore
+smelter doesn't want tools
+smelter9 is swapping gold for lord0's food
+smelter has resources for makingiron
+10
+merchant10 is swapping gold for lord0's food
+11
+farmer wants land
+farmer doesn't want tools
+farmer11 is swapping food for lord0's land
+farmer has resources for makingfood
+12
+smith wants iron
+smith doesn't want wood
+smith12 is swapping gold for lord0's food
+smith has resources for makingtools
+13
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner13 is swapping food for lord0's land
+miner has resources for makingore
+14
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter14 is swapping food for lord0's land
+woodcutter has resources for makingwood
+15
+merchant15 is swapping gold for lord0's food
+16
+lord16 is swapping gold for lord0's food
+17
+farmer wants land
+farmer doesn't want tools
+farmer17 is swapping food for lord0's land
+farmer has resources for makingfood
+18
+smith wants iron
+smith doesn't want wood
+smith18 is swapping gold for lord0's food
+smith has resources for makingtools
+19
+smelter wants ore
+smelter doesn't want tools
+smelter19 is swapping gold for lord0's food
+smelter has resources for makingiron
+20
+lord20 is swapping gold for merchant21's food
+21
+merchant21 is swapping gold for lord20's food
+22
+farmer wants land
+farmer doesn't want tools
+farmer22 is swapping food for lord20's land
+farmer has resources for makingfood
+23
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner23 is swapping food for lord20's land
+miner has resources for makingore
+24
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter24 is swapping food for lord20's land
+woodcutter has resources for makingwood
+25
+merchant25 is swapping gold for lord20's food
+26
+lord26 is swapping gold for lord20's food
+27
+farmer wants land
+farmer doesn't want tools
+farmer27 is swapping food for lord20's land
+farmer has resources for makingfood
+28
+smelter wants ore
+smelter doesn't want tools
+smelter28 is swapping gold for lord20's food
+smelter has resources for makingiron
+29
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner29 is swapping food for lord20's land
+miner has resources for makingore
+30
+farmer wants land
+farmer doesn't want tools
+farmer30 is swapping food for lord20's land
+farmer has resources for makingfood
+31
+smith wants iron
+smith doesn't want wood
+smith31 is swapping gold for lord20's food
+smith has resources for makingtools
+32
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter32 is swapping food for lord20's land
+woodcutter has resources for makingwood
+33
+merchant33 is swapping gold for lord20's food
+34
+farmer wants land
+farmer doesn't want tools
+farmer34 is swapping food for lord20's land
+farmer has resources for makingfood
+35
+smelter wants ore
+smelter doesn't want tools
+smelter35 is swapping gold for lord20's food
+smelter has resources for makingiron
+36
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner36 is swapping food for lord20's land
+miner has resources for makingore
+37
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter37 is swapping food for lord20's land
+woodcutter has resources for makingwood
+38
+lord38 is swapping gold for smelter39's food
+39
+smelter wants ore
+smelter doesn't want tools
+smelter39 is swapping gold for lord38's food
+smelter has resources for makingiron
+40
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner40 is swapping food for lord38's land
+miner has resources for makingore
+41
+merchant41 is swapping gold for lord38's food
+42
+farmer wants land
+farmer doesn't want tools
+farmer42 is swapping food for lord38's land
+farmer has resources for makingfood
+43
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner43 is swapping food for lord38's land
+miner has resources for makingore
+44
+farmer wants land
+farmer doesn't want tools
+farmer44 is swapping food for lord38's land
+farmer has resources for makingfood
+45
+smith wants iron
+smith doesn't want wood
+smith45 is swapping gold for lord38's food
+smith has resources for makingtools
+46
+merchant46 is swapping gold for lord38's food
+47
+lord47 is swapping gold for lord38's food
+48
+farmer wants land
+farmer doesn't want tools
+farmer48 is swapping food for lord38's land
+farmer has resources for makingfood
+49
+smith wants iron
+smith doesn't want wood
+smith49 is swapping gold for lord38's food
+smith has resources for makingtools
+50
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter50 is swapping food for lord38's land
+woodcutter has resources for makingwood
+51
+lord51 is swapping gold for lord38's food
+52
+farmer wants land
+farmer doesn't want tools
+farmer52 is swapping food for lord38's land
+farmer has resources for makingfood
+53
+smith wants iron
+smith doesn't want wood
+smith53 is swapping gold for lord38's food
+smith has resources for makingtools
+54
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter54 is swapping food for lord38's land
+woodcutter has resources for makingwood
+55
+lord55 is swapping gold for merchant56's food
+56
+merchant56 is swapping gold for lord55's food
+57
+lord57 is swapping gold for lord55's food
+58
+farmer wants land
+farmer doesn't want tools
+farmer58 is swapping food for lord55's land
+farmer has resources for makingfood
+59
+smith wants iron
+smith doesn't want wood
+smith59 is swapping gold for lord55's food
+smith has resources for makingtools
+60
+merchant60 is swapping gold for lord55's food
+61
+lord61 is swapping gold for lord55's food
+62
+smelter wants ore
+smelter doesn't want tools
+smelter62 is swapping gold for lord55's food
+smelter has resources for makingiron
+63
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter63 is swapping food for lord55's land
+woodcutter has resources for makingwood
+64
+lord64 is swapping gold for lord55's food
+65
+smith wants iron
+smith doesn't want wood
+smith65 is swapping gold for lord55's food
+smith has resources for makingtools
+66
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner66 is swapping food for lord55's land
+miner has resources for makingore
+67
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter67 is swapping food for lord55's land
+woodcutter has resources for makingwood
+68
+lord68 is swapping gold for lord55's food
+69
+farmer wants land
+farmer doesn't want tools
+farmer69 is swapping food for lord55's land
+farmer has resources for makingfood
+70
+smelter wants ore
+smelter doesn't want tools
+smelter70 is swapping gold for lord55's food
+smelter has resources for makingiron
+71
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner71 is swapping food for lord55's land
+miner has resources for makingore
+72
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter72 is swapping food for lord55's land
+woodcutter has resources for makingwood
+73
+lord73 is swapping gold for merchant74's food
+74
+merchant74 is swapping gold for lord73's food
+75
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner75 is swapping food for lord73's land
+miner has resources for makingore
+76
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter76 is swapping food for lord73's land
+woodcutter has resources for makingwood
+77
+lord77 is swapping gold for lord73's food
+78
+farmer wants land
+farmer doesn't want tools
+farmer78 is swapping food for lord73's land
+farmer has resources for makingfood
+79
+smith wants iron
+smith doesn't want wood
+smith79 is swapping gold for lord73's food
+smith has resources for makingtools
+80
+smelter wants ore
+smelter doesn't want tools
+smelter80 is swapping gold for lord73's food
+smelter has resources for makingiron
+81
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner81 is swapping food for lord73's land
+miner has resources for makingore
+82
+lord82 is swapping gold for lord73's food
+83
+farmer wants land
+farmer doesn't want tools
+farmer83 is swapping food for lord73's land
+farmer has resources for makingfood
+84
+smith wants iron
+smith doesn't want wood
+smith84 is swapping gold for lord73's food
+smith has resources for makingtools
+85
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner85 is swapping food for lord73's land
+miner has resources for makingore
+86
+merchant86 is swapping gold for lord73's food
+87
+farmer wants land
+farmer doesn't want tools
+farmer87 is swapping food for lord73's land
+farmer has resources for makingfood
+88
+smith wants iron
+smith doesn't want wood
+smith88 is swapping gold for lord73's food
+smith has resources for makingtools
+89
+smelter wants ore
+smelter doesn't want tools
+smelter89 is swapping gold for lord73's food
+smelter has resources for makingiron
+90
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner90 is swapping food for lord73's land
+miner has resources for makingore
+91
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter91 is swapping food for lord73's land
+woodcutter has resources for makingwood
+92
+lord92 is swapping gold for lord93's food
+93
+lord93 is swapping gold for lord92's food
+94
+farmer wants land
+farmer doesn't want tools
+farmer94 is swapping food for lord92's land
+farmer has resources for makingfood
+95
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter95 is swapping food for lord92's land
+woodcutter has resources for makingwood
+96
+lord96 is swapping gold for lord92's food
+97
+farmer wants land
+farmer doesn't want tools
+farmer97 is swapping food for lord92's land
+farmer has resources for makingfood
+98
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner98 is swapping food for lord92's land
+miner has resources for makingore
+99
+smith wants iron
+smith doesn't want wood
+smith99 is swapping gold for lord92's food
+smith has resources for makingtools
+100
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter100 is swapping food for lord92's land
+woodcutter has resources for makingwood
+101
+lord101 is swapping gold for lord92's food
+102
+farmer wants land
+farmer doesn't want tools
+farmer102 is swapping food for lord92's land
+farmer has resources for makingfood
+103
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner103 is swapping food for lord92's land
+miner has resources for makingore
+104
+merchant104 is swapping gold for lord92's food
+105
+merchant105 is swapping gold for lord92's food
+106
+farmer wants land
+farmer doesn't want tools
+farmer106 is swapping food for lord92's land
+farmer has resources for makingfood
+107
+smith wants iron
+smith doesn't want wood
+smith107 is swapping gold for lord92's food
+smith has resources for makingtools
+108
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner108 is swapping food for lord92's land
+miner has resources for makingore
+109
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter109 is swapping food for lord92's land
+woodcutter has resources for makingwood
+110
+merchant110 is swapping gold for smith111's food
+111
+smith wants iron
+smith doesn't want wood
+smith111 is swapping food for merchant110's gold
+smith has resources for makingtools
+112
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter112 is swapping food for merchant110's gold
+woodcutter has resources for makingwood
+113
+merchant113 is swapping gold for merchant110's food
+
+114
+farmer wants land
+farmer doesn't want tools
+farmer114 is swapping food for merchant110's gold
+farmer has resources for makingfood
+115
+smith wants iron
+smith doesn't want wood
+smith115 is swapping gold for merchant110's food
+smith has resources for makingtools
+116
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner116 is swapping food for merchant110's gold
+miner has resources for makingore
+0
+lord0 is swapping gold for merchant1's food
+1
+merchant1 is swapping gold for lord0's food
+2
+smelter wants ore
+smelter doesn't want tools
+smelter2 is swapping food for lord0's gold
+smelter has resources for makingiron
+3
+merchant3 is swapping gold for lord0's food
+4
+farmer wants land
+farmer doesn't want tools
+farmer4 is swapping food for lord0's land
+farmer has resources for makingfood
+5
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner5 is swapping food for lord0's land
+miner has resources for makingore
+6
+lord6 is swapping food for lord0's gold
+7
+farmer wants land
+farmer doesn't want tools
+farmer7 is swapping food for lord0's land
+farmer has resources for makingfood
+8
+smith wants iron
+smith doesn't want wood
+smith8 is swapping food for lord0's gold
+smith has resources for makingtools
+9
+smelter wants ore
+smelter doesn't want tools
+smelter9 is swapping food for lord0's gold
+smelter has resources for makingiron
+10
+merchant10 is swapping gold for lord0's food
+11
+farmer wants land
+farmer doesn't want tools
+farmer11 is swapping food for lord0's land
+farmer has resources for makingfood
+12
+smith wants iron
+smith doesn't want wood
+smith12 is swapping food for lord0's gold
+smith has resources for makingtools
+13
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner13 is swapping food for lord0's land
+miner has resources for makingore
+14
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter14 is swapping food for lord0's land
+woodcutter has resources for makingwood
+15
+merchant15 is swapping gold for lord0's food
+16
+lord16 is swapping food for lord0's gold
+17
+farmer wants land
+farmer doesn't want tools
+farmer17 is swapping food for lord0's land
+farmer has resources for makingfood
+18
+smith wants iron
+smith doesn't want wood
+smith18 is swapping food for lord0's gold
+smith has resources for makingtools
+19
+smelter wants ore
+smelter doesn't want tools
+smelter19 is swapping food for lord0's gold
+smelter has resources for makingiron
+20
+lord20 is swapping gold for merchant21's food
+21
+merchant21 is swapping gold for lord20's food
+22
+farmer wants land
+farmer doesn't want tools
+farmer22 is swapping food for lord20's land
+farmer has resources for makingfood
+23
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner23 is swapping food for lord20's land
+miner has resources for makingore
+24
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter24 is swapping food for lord20's land
+woodcutter has resources for makingwood
+25
+merchant25 is swapping gold for lord20's food
+26
+lord26 is swapping food for lord20's gold
+27
+farmer wants land
+farmer doesn't want tools
+farmer27 is swapping food for lord20's land
+farmer has resources for makingfood
+28
+smelter wants ore
+smelter doesn't want tools
+smelter28 is swapping food for lord20's gold
+smelter has resources for makingiron
+29
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner29 is swapping food for lord20's land
+miner has resources for makingore
+30
+farmer wants land
+farmer doesn't want tools
+farmer30 is swapping food for lord20's land
+farmer has resources for makingfood
+31
+smith wants iron
+smith doesn't want wood
+smith31 is swapping food for lord20's gold
+smith has resources for makingtools
+32
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter32 is swapping food for lord20's land
+woodcutter has resources for makingwood
+33
+merchant33 is swapping gold for lord20's food
+34
+farmer wants land
+farmer doesn't want tools
+farmer34 is swapping food for lord20's land
+farmer has resources for makingfood
+35
+smelter wants ore
+smelter doesn't want tools
+smelter35 is swapping food for lord20's gold
+smelter has resources for makingiron
+36
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner36 is swapping food for lord20's land
+miner has resources for makingore
+37
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter37 is swapping food for lord20's land
+woodcutter has resources for makingwood
+38
+lord38 is swapping gold for smelter39's food
+39
+smelter wants ore
+smelter doesn't want tools
+smelter39 is swapping gold for lord38's food
+smelter has resources for makingiron
+40
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner40 is swapping food for lord38's land
+miner has resources for makingore
+41
+merchant41 is swapping gold for lord38's food
+42
+farmer wants land
+farmer doesn't want tools
+farmer42 is swapping food for lord38's land
+farmer has resources for makingfood
+43
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner43 is swapping food for lord38's land
+miner has resources for makingore
+44
+farmer wants land
+farmer doesn't want tools
+farmer44 is swapping food for lord38's land
+farmer has resources for makingfood
+45
+smith wants iron
+smith doesn't want wood
+smith45 is swapping food for lord38's gold
+smith has resources for makingtools
+46
+merchant46 is swapping gold for lord38's food
+47
+lord47 is swapping food for lord38's gold
+48
+farmer wants land
+farmer doesn't want tools
+farmer48 is swapping food for lord38's land
+farmer has resources for makingfood
+49
+smith wants iron
+smith doesn't want wood
+smith49 is swapping food for lord38's gold
+smith has resources for makingtools
+50
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter50 is swapping food for lord38's land
+woodcutter has resources for makingwood
+51
+lord51 is swapping food for lord38's gold
+52
+farmer wants land
+farmer doesn't want tools
+farmer52 is swapping food for lord38's land
+farmer has resources for makingfood
+53
+smith wants iron
+smith doesn't want wood
+smith53 is swapping food for lord38's gold
+smith has resources for makingtools
+54
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter54 is swapping food for lord38's land
+woodcutter has resources for makingwood
+55
+lord55 is swapping gold for merchant56's food
+56
+merchant56 is swapping gold for lord55's food
+57
+lord57 is swapping food for lord55's gold
+58
+farmer wants land
+farmer doesn't want tools
+farmer58 is swapping food for lord55's land
+farmer has resources for makingfood
+59
+smith wants iron
+smith doesn't want wood
+smith59 is swapping food for lord55's gold
+smith has resources for makingtools
+60
+merchant60 is swapping gold for lord55's food
+61
+lord61 is swapping food for lord55's gold
+62
+smelter wants ore
+smelter doesn't want tools
+smelter62 is swapping food for lord55's gold
+smelter has resources for makingiron
+63
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter63 is swapping food for lord55's land
+woodcutter has resources for makingwood
+64
+lord64 is swapping food for lord55's gold
+65
+smith wants iron
+smith doesn't want wood
+smith65 is swapping food for lord55's gold
+smith has resources for makingtools
+66
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner66 is swapping food for lord55's land
+miner has resources for makingore
+67
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter67 is swapping food for lord55's land
+woodcutter has resources for makingwood
+68
+lord68 is swapping food for lord55's gold
+69
+farmer wants land
+farmer doesn't want tools
+farmer69 is swapping food for lord55's land
+farmer has resources for makingfood
+70
+smelter wants ore
+smelter doesn't want tools
+smelter70 is swapping food for lord55's gold
+smelter has resources for makingiron
+71
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner71 is swapping food for lord55's land
+miner has resources for makingore
+72
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter72 is swapping food for lord55's land
+woodcutter has resources for makingwood
+73
+lord73 is swapping gold for merchant74's food
+74
+merchant74 is swapping gold for lord73's food
+75
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner75 is swapping food for lord73's land
+miner has resources for makingore
+76
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter76 is swapping food for lord73's land
+woodcutter has resources for makingwood
+77
+lord77 is swapping food for lord73's gold
+78
+farmer wants land
+farmer doesn't want tools
+farmer78 is swapping food for lord73's land
+farmer has resources for makingfood
+79
+smith wants iron
+smith doesn't want wood
+smith79 is swapping food for lord73's gold
+smith has resources for makingtools
+80
+smelter wants ore
+smelter doesn't want tools
+smelter80 is swapping food for lord73's gold
+smelter has resources for makingiron
+81
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner81 is swapping food for lord73's land
+miner has resources for makingore
+82
+lord82 is swapping food for lord73's gold
+83
+farmer wants land
+farmer doesn't want tools
+farmer83 is swapping food for lord73's land
+farmer has resources for makingfood
+84
+smith wants iron
+smith doesn't want wood
+smith84 is swapping food for lord73's gold
+smith has resources for makingtools
+85
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner85 is swapping food for lord73's land
+miner has resources for makingore
+86
+merchant86 is swapping gold for lord73's food
+87
+farmer wants land
+farmer doesn't want tools
+farmer87 is swapping food for lord73's land
+farmer has resources for makingfood
+88
+smith wants iron
+smith doesn't want wood
+smith88 is swapping food for lord73's gold
+smith has resources for makingtools
+89
+smelter wants ore
+smelter doesn't want tools
+smelter89 is swapping food for lord73's gold
+smelter has resources for makingiron
+90
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner90 is swapping food for lord73's land
+miner has resources for makingore
+91
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter91 is swapping food for lord73's land
+woodcutter has resources for makingwood
+92
+lord92 is swapping gold for lord93's food
+93
+lord93 is swapping gold for lord92's food
+94
+farmer wants land
+farmer doesn't want tools
+farmer94 is swapping food for lord92's land
+farmer has resources for makingfood
+95
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter95 is swapping food for lord92's land
+woodcutter has resources for makingwood
+96
+lord96 is swapping food for lord92's gold
+97
+farmer wants land
+farmer doesn't want tools
+farmer97 is swapping food for lord92's land
+farmer has resources for makingfood
+98
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner98 is swapping food for lord92's land
+miner has resources for makingore
+99
+smith wants iron
+smith doesn't want wood
+smith99 is swapping food for lord92's gold
+smith has resources for makingtools
+100
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter100 is swapping food for lord92's land
+woodcutter has resources for makingwood
+101
+lord101 is swapping food for lord92's gold
+102
+farmer wants land
+farmer doesn't want tools
+farmer102 is swapping food for lord92's land
+farmer has resources for makingfood
+103
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner103 is swapping food for lord92's land
+miner has resources for makingore
+104
+merchant104 is swapping gold for lord92's food
+105
+merchant105 is swapping gold for lord92's food
+106
+farmer wants land
+farmer doesn't want tools
+farmer106 is swapping food for lord92's land
+farmer has resources for makingfood
+107
+smith wants iron
+smith doesn't want wood
+smith107 is swapping food for lord92's gold
+smith has resources for makingtools
+108
+miner wants land
+miner doesn't want tools
+miner wants land
+miner doesn't want tools
+miner108 is swapping food for lord92's land
+miner has resources for makingore
+109
+woodcutter wants land
+woodcutter doesn't want tools
+woodcutter109 is swapping food for lord92's land
+woodcutter has resources for makingwood
+^Cccd /home/ryan/Documents/Love/GHNodes
+ryan@ryan-laptop:~/Documents/Love/GHNodes$ ccd /home/ryan/Documents/Love/GHNodes
+^Cccd /home/ryan/Documents/Love/GHNodes
+
+ryan@ryan-laptop:~/Documents/Love/GHNodes$ ccd /home/ryan/Documents/Love/GHNodes
+No command 'ccd' found, did you mean:
+
+ Command 'cccd' from package 'cccd' (universe)
+ Command 'tcd' from package 'tcd' (universe)
+ Command 'hcd' from package 'hfsutils' (main)
+ Command 'cc' from package 'gcc' (main)
+ Command 'cc' from package 'pentium-builder' (universe)
+ Command 'mcd' from package 'mtools' (main)
+ Command 'ncd' from package 'complearn-tools' (universe)
+ Command 'cdcd' from package 'cdcd' (universe)
+ Command 'bcd' from package 'bsdgames' (universe)
+ccd: command not found
+ryan@ryan-laptop:~/Documents/Love/GHNodes$ ^C
+ryan@ryan-laptop:~/Documents/Love/GHNodes$ cd /home/ryan/Documents/Love/GHNodes
+ryan@ryan-laptop:~/Documents/Love/GHNodes$ 
+
