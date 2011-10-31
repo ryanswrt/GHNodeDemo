@@ -24,6 +24,7 @@ click=function(x,y,button)
     activeNode.name = "blank"
     for i, j in ipairs(nodes) do
 	if x - j.x < 10 and x - j.x > -10 and y - j.y < 10 and y - j.y > -10 then
+	    initNodeShapes(j)
 	    activeNode=j
 	    drawmode="node"
 	end
@@ -36,6 +37,8 @@ end
 node={ --when you are looking at a specific city
 draw=function()
     for i, j in ipairs(activeNode.entities) do
+	LG.setColor(changeTone(j.color,-30))
+	j.house:draw('fill')
 	LG.setColor(white)
 	LG.print(j.name..j.id,j.x,j.y-10)
 	LG.setColor(j.color)
@@ -44,8 +47,6 @@ draw=function()
     end
     
     if activeEnt then
-	  LG.print(getWantsButtons(activeEnt),400,10)
-	  LG.print(getHasButtons(activeEnt),400,30)
 	  for i,ally in ipairs(activeEnt.allies) do
 	      LG.line(activeEnt.x,activeEnt.y,ally.x,ally.y)
 	      LG.print(ally.name..ally.id,400,30+i*10)
@@ -60,7 +61,10 @@ click=function(x,y,button)
 	if x - j.x < 10 and x - j.x > -10 and y - j.y < 10 and y - j.y > -10 then
 	    if tradepanel then tradepanel:destroy() end
 	    tradepanel = goo.panel:new()
+	    
 	    activeEnt=j
+	    getWantsButtons(activeEnt)
+	    getHasButtons(activeEnt)
 	    drawmode="node"
 	    break	    
 	end

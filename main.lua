@@ -1,7 +1,7 @@
 --require "debug_unstable"
 
 LG = love.graphics 
-
+HC = require "HardonCollider"
 goo = require 'goo/goo'
 anim = require 'anim/anim'
 require "specs"
@@ -16,6 +16,17 @@ activeNode = {}
 activeNode.entities = {}
 activeNode.name = "blank"
 
+function on_collision(dt, shape_a, shape_b, mtv_x, mtv_y)
+    --text[#text+1] = string.format("Colliding. shape = (%s,%s)")
+    shape_a:move(math.random(50)-25.5,math.random(50)-25.5)                     
+end
+
+-- this is called when two shapes stop colliding
+function collision_stop(dt, shape_a, shape_b)
+    shape_a.parent.y = shape_a._polygon.centroid.y
+    shape_a.parent.x = shape_a._polygon.centroid.x
+end
+
 function entityTurn(entity)
     calcWants(entity)
     sourceWants(entity)
@@ -26,10 +37,8 @@ function calcWants(entity)
     for r, spec in pairs(entity.makes) do
 	if spec.uses then for resource,usesspec in pairs(spec.uses) do
 	    if entity.has[usesspec.resource][1]*2 < usesspec.num then
-		    print(entity.name .. " wants " .. usesspec.resource) 
 		    entity.wants[usesspec.resource][1] = usesspec.num
 	    else
-		    print(entity.name .. " doesn't want " .. usesspec.resource)
 		    entity.wants[usesspec.resource][1] = 0
 	    end
 	    end
@@ -45,7 +54,7 @@ function sourceWants(entity)
     for name, data in ipairs(entity.node.entities) do
 	for resource, amount in pairs(entity.wants) do
 	    if amount[1]>0 and data.has[resource][1] > 0 and data.wants[resource][1]<=data.has[resource][1] and data.id ~= entity.id and data.alive then 
-		print(entity.name.." wants "..resource)
+		--print(entity.name.." wants "..resource)
 		for dresource, damount in pairs(data.wants) do
 		    if damount[1]>0 and entity.has[dresource][1] > 0 and entity.wants[dresource][1]*4<=entity.has[dresource][1] and resource ~= dresource then
 
@@ -64,7 +73,7 @@ function sourceWants(entity)
 			return
 		    else
 			table.insert(entity.enemies,data)
-			for i,j in ipairs(entity.enemies) do print(j.name) end
+			--for i,j in ipairs(entity.enemies) do print(j.name) end
 		    end
 		end
 	    end
@@ -95,22 +104,20 @@ function getWantsButtons(entity)
 	if j[1] ~= 0 then 
 	    x = x+1
 	    local button = goo.button:new(tradepanel)
+		if playertrading== i then button:setStyle( redStyle ) else button:setStyle( defaultStyle )  end
 		button:setPos( 400+x*60, 10 )
 		button:setText( i.." "..j[1] )
 		button:sizeToText()
-		local redStyle = {
-		backgroundColor = {255,0,0},
-		backgroundColorHover = {125,0,0},
-		borderColor = {0,0,0,0},
-		borderColorHover = {0,0,0,0},
-	}
 		button.onClick = function(self,button)
-			if button == 'l' then
-				self:setStyle( redStyle )
+			if button == 'l' then				
 				playertrading = i
+				getWantsButtons(entity)
 				if playergetting and player.has[i][1] > 0 then 
 				player.has[playergetting][1]=player.has[playergetting][1]+1
+				player.has[playertrading][1]=player.has[playertrading][1]-1
 				entity.has[playergetting][1]=entity.has[playergetting][1]-1
+				entity.has[playertrading][1]=entity.has[playertrading][1]+1
+				getHasButtons(entity)
 				end
 			end
 		end
@@ -134,24 +141,22 @@ function getHasButtons(entity)
     --formats a string of what the entity has
     local has = "Has: "
     local x = 0
+    if haspanel then haspanel:destroy() end
+    haspanel = goo.panel:new(tradepanel)
     for i, j in pairs(entity.has) do
 	if j[1] ~= 0 then 
-	  	    x = x+1
-	    local button = goo.button:new(tradepanel)
+	    x = x+1
+	    
+	    local button = goo.button:new(haspanel)
+		if playergetting== i then button:setStyle( redStyle ) else button:setStyle( defaultStyle )  end
 		button:setPos( 400+x*60, 40 )
 		button:setText( i.." "..j[1] )
 		button:sizeToText()
-		local redStyle = {
-		backgroundColor = {255,0,0},
-		backgroundColorHover = {125,0,0},
-		borderColor = {0,0,0,0},
-		borderColorHover = {0,0,0,0},
-	}
 		button.onClick = function(self,button)
-			if button == 'l' then
-				print "a"
-				self:setStyle( redStyle )
+			if button == 'l' then	
 				playergetting = i
+				
+				getHasButtons(entity)
 				end
 		end
 	end
@@ -190,7 +195,8 @@ end
 
 function love.load()
     math.randomseed( os.time() )
-    
+    HC.init(100, on_collision, collision_stop)
+
     makeNodes(2,50,50)
     linkNodes()
     populateNode(nodes[1],7)
@@ -199,6 +205,8 @@ function love.load()
 end
 
 function love.update(dt)
+	HC.update(dt*5)
+
 	goo:update(dt)
 	anim:update(dt)
 end
@@ -227,6 +235,7 @@ end
 function love.keypressed(key)
     goo:keypressed( key, unicode )
     if key == "s" then
+      removeNodeShapes(activeNode)
       drawmode="overview"
     end
     if key == "a" then
@@ -277,21 +286,33 @@ function makeEntity(class,node)
   local size = #entityStore
   e.node = node
   e.id = size
-  e.x,e.y = math.random((size+1)*10)+50,math.random((size+1)*10)+50
-  for i, j in ipairs(nodes) do
-      while e.x - j.x < 30 and e.x - j.x > -30 and j.x < 800 and e.y - j.y < 30 and e.y - j.y > -30 and j.y < 800 do
-	  e.x,e.y = math.random((5)*10)+50,math.random((5)*10)+50
-      end
-  end
+  e.x,e.y = 300,300
+  e.rl,e.rh= math.random(50)+10,math.random(50)+10
   table.insert(entityStore,e)
   return e
+end
+
+function initNodeShapes(node)
+  for i,j in ipairs(node.entities) do
+    	    --print(j.x,j.rl,j.rh)
+	    j.house = HC.addPolygon(1,1,1,j.rl,j.rh,j.rl,j.rh,1)
+	    j.house:moveTo(j.x,j.y)
+	    j.house.parent = j
+  end
+
+end
+
+function removeNodeShapes(node)
+  for i,j in ipairs(node.entities) do
+      HC.remove(j.house)
+  end
 end
 
 function populateNode(node,popi)
   --Inserts a completely random selection of entities into a node
   local pop = 0
   while pop < popi do
-  print (pop)
+  --print (pop)
       for i, j in pairs(entitySpec) do
 	  if math.random(6)>3 then
 	      pop = pop + 1
@@ -323,4 +344,8 @@ function deepcopy(object)
         return setmetatable(new_table, getmetatable(object))
     end
     return _copy(object)
+end
+
+function changeTone(color,change)
+return {color[1]+change,color[2]+change,color[3]+change}
 end

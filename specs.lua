@@ -6,6 +6,20 @@ yellow={250,250,50}
 brown={200,120,50}
 white={255,255,255}
 
+redStyle = {
+backgroundColor = {255,0,0},
+backgroundColorHover = {125,0,0},
+borderColor = {0,0,0,0},
+borderColorHover = {0,0,0,0},
+}
+
+defaultStyle = {
+backgroundColor = {100,100,100},
+backgroundColorHover = {125,0,0},
+borderColor = {0,0,0,0},
+borderColorHover = {0,0,0,0},
+}
+
 
 player={
 has={food={40},land={0}, swords={0},wood={0},gold={10},stone={0},ore={0},iron={0}, tools={0}}
@@ -58,8 +72,9 @@ entitySpec.woodcutter.makes.wood={uses={{resource="land",num=1},{resource="tools
 entitySpec.miner.color=grey
 entitySpec.miner.wants.land={1}
 entitySpec.miner.wants.tools={1}
-entitySpec.miner.makes.stone={uses={{resource="land",num=1},{resource="tools",num=1}},chance=50,4}
 entitySpec.miner.makes.ore={uses={{resource="land",num=1},{resource="tools",num=1}},chance=50,2}
+--entitySpec.miner.makes.stone={uses={{resource="land",num=1},{resource="tools",num=1}},chance=50,4}
+
 
 entitySpec.smelter.color=red
 entitySpec.smelter.wants.ore={1}
